@@ -104,6 +104,18 @@
     margin: 0 auto;
 }
 
+/* FOOTER */
+
+footer {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    background-color: #007BFF;
+    color: #FFF;
+    padding: 50px 0;
+}
+
 /* MOBILE */
 
 @media(max-width: 480px) {
