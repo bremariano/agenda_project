@@ -14,7 +14,7 @@ if (!empty($data)) {
 
         $name = $data["name"];
         $phone = $data["phone"];
-        $observation = $data["observation"];
+        $observation = $data["observations"];
 
         $query = "INSERT INTO contacts (name, phone, observations) VALUES (:name, :phone, :observations)";
 
@@ -36,6 +36,32 @@ if (!empty($data)) {
             echo "Error: " . $e->getMessage();
         }
 
+    } elseif ($data["type"] === "edit") {
+        $id = $data["id"];
+        $name = $data["name"];
+        $phone = $data["phone"];
+        $observation = $data["observations"];
+
+        $query = "UPDATE contacts 
+                  SET name = :name, phone = :phone, observations = :observations
+                  WHERE id = :id";
+
+        $stmt = $conn->prepare($query);
+
+        $stmt->bindParam(":name", $name);
+        $stmt->bindParam(":phone", $phone);
+        $stmt->bindParam(":observations", $observation);
+        $stmt->bindParam(":id", $id);
+
+        try {
+
+            $stmt->execute();
+            $_SESSION['msg'] = "Contact successfully updated!";
+
+        }catch (PDOException $e) {
+
+            echo "Error: " . $e->getMessage();
+        }
     }
 
     // REDIRECT HOME
